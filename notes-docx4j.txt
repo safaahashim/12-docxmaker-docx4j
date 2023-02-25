@@ -1,0 +1,123 @@
+Project docxmaker using docx4j API
+
+(1) Research docc4j API to see if it can address my goals
+(2) Project plan
+(3) book model
+
+=================================
+(1) Research docc4j API to see if it cann address my goals
+
+Need the following features
+
+(1) create docx package
+(2) create main (book) document and its (chapter) subdocuments and takes care of creating the relationships
+(3) walk the book's JAXB created java model to create the book using docx4j. (Note: if it turns out the docx4j API
+is not sufficient in its open source form (without licensing) I can at least replace it with APACHE POI.
+
+THIS IS IT.
+
+All I need to do is get expertise using all features that docx4j can offer to build a professional looking and
+production quality Word Book document that I can publish on Amazon both in English and Arabic or any other language.
+
+
+----------------------------------
+(2) Project plan
+
+(a) update book model by completing and updating the domain object model used in project "batchtranslator" project
+(b) use docx4j to generate simple word docx document from a test book.xml file
+(c) Start introducing features to the application in the following areas:
+
+c.1 generate main text content that render regular paragraphs
+c.2 page layout
+c.3 paragraphs with footnotes
+c.4 create book with chapters, sections, and subsections
+c.5 embed images in text
+...
+Keep adding features till covering the full scale of book formating
+
+Expected time-line probably 1-2 months.
+
+----------------------------------
+(3) Book model
+
+
+- Book mark-up language structure. The goal is to use JAXB to Marshal and UnMarshal XML to Java pojos.
+
+
+<package>
+    ----- IDML -----
+    <mimetype/>
+    <container/>
+    <fonts/>
+    <graphics/>
+    <styles/>
+    <preferences/>
+    <spreads/>
+    <stories/>
+    <designmap/>
+    <masterspreads/>
+    ---- DOCX ------
+    <book pageWidth pageHeight PageBorder left top right bottom title>
+       <story id type title page-count align/>
+       
+       <story id="frontcover" type="frontcover" title page-count align/>
+       
+       <story id="titlepage" type="titlepage" series_name, series_subtitle
+       issue title author_name designer credit_for publisher original_publisher
+       date original_date page-count/>
+       
+       <story id="copyright" type="copyright" page-count align>
+       	<body>
+       	  <block-text id="" title="'>
+       	    <p type="text"/>
+       	</body>
+       
+       <story id="intro" type="chapter" title="" page-count="" align>=""/>
+       
+          <body>
+               <p type="dropcap" id="" src="" width height scale align/>
+               <p type="signature"/>
+               <p type="text" indent="y/n"/>
+               <p type="coverimage" id="" src="" width="" height="" scale="" align=""/>
+               <p type="figure"  id="" src="" width="" height="" scale="" align=""/>
+               <p type="figure-row" id="" align=""/>
+               <p type="figure-rows" id="" align=""/>
+               <p type="figure-column" id="" align=""/>
+               <p type="figure-columns" id="" align=""/>
+               <p type="caption" id="" align=""/>
+               
+               
+               <p type="pwf">  <--- paragraph with footnote
+                   <tf>
+                     <t>
+                     <f>
+                   </tf>
+                   <t>
+               </p>
+               
+               <p type="heading"/>
+               
+               <block-text>    <---- for now forget about this element
+                   <p></p>
+               </block-text>
+               
+               <p type="list" numbering="indent/numbers/alpha" level=1/2/3/4" indent="y/n"/>
+                 <li>
+                   <p type="text"/>
+                   <p type="list"/>
+                  </li>
+               </p>
+          </body>
+          <section>
+             <body>
+             </body>
+             <subsection>
+                <body>
+                </body>
+             </subsection>
+          </section>
+       </story>
+    </book>
+<package>
+
+
